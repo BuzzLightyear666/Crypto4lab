@@ -1,12 +1,12 @@
 import random, math, itertools
 
-# Реалізація монобітного тесту
+# 1. Реалізація монобітного тесту 
 def monobit_test(sequence):
     ones_count = sequence.count('1')     # Підраховує кількість одиниць у строці
     result = 9654 < ones_count < 10346     # Результат згідно тесту монобіта повинен варіювати між значеннями    
     return result                        # повертає результат
 
-# Реалізація тесту покера
+# 3. Реалізація тесту покера
 def poker_test(sequence):
     subsequence_length = 4        # Задається довжина біта
     subsequence_count = len(sequence) // subsequence_length     # Вираховується коєфіціент
@@ -22,6 +22,7 @@ def poker_test(sequence):
     result = 1.03 < poker_chi_square < 57.4
     return result
 
+# 2. Реалізація 
 def runs_test(sequence):     # Записуєм наше бінарне значення в список по символьно 
     runs = [list(g) for k, g in itertools.groupby(sequence)] 
     run_count = len(runs)        # Розраховуєм довжину списку
@@ -33,6 +34,7 @@ def runs_test(sequence):     # Записуєм наше бінарне знач
     result = runs_test_statistic <= tau
     return result
 
+# 4. Реалізація 
 def long_run_test(sequence):    # Вираховується кількість нулів або одиниць які йдуть підряд, за цим тестом кількість не повинна перевищувати 42
     max_run_length = max(len(list(g)) for k, g in itertools.groupby(sequence))
     result = max_run_length <= 42
