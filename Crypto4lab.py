@@ -68,7 +68,7 @@ def fips_140_test(sequence):
 
 # Функція прийому та передачі даних між користувачем та алгоритмами тестів
 def random_test(): 
-        binarian = input("байтова строка"):
+        binarian = input("байтова строка:")
         result = fips_140_test(binarian)
         if result:
             print("Послідовність проходить тест FIPS-140-3: вона є достатньою випадковою.")
