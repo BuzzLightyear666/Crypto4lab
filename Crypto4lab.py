@@ -1,14 +1,16 @@
 import random, math, itertools
 
+# Реалізація монобітного тесту
 def monobit_test(sequence):
     ones_count = sequence.count('1')     # Підраховує кількість одиниць у строці
     result = 9654 < ones_count < 10346     # Результат згідно тесту монобіта повинен варіювати між значеннями    
-    return result
+    return result                        # повертає результат
 
+# Реалізація тесту покера
 def poker_test(sequence):
     subsequence_length = 4        # Задається довжина біта
     subsequence_count = len(sequence) // subsequence_length     # Вираховується коєфіціент
-    subsequence_frequencies = {}
+    subsequence_frequencies = {}                                 # Зберігає частоти різних підпослідовностей
 
     for i in range(subsequence_count):        # Відповідно до формул тесту Покера вираховується коеєфіціент кожного бінарного значення по бітам та вноситься в список
         subsequence = sequence[i * subsequence_length: (i + 1) * subsequence_length]
