@@ -10,11 +10,11 @@ def test1_monobita(sequence):
 def test2_max_lengh(sequence):     # Записуєм наше бінарне значення в список по символьно 
     runs = [list(g) for k, g in itertools.groupby(sequence)] 
     run_count = len(runs)        # Розраховуєм довжину списку
-    pi  = 2.0 / 3.0                # Задаєм вірогідність повторюванності одиниці
-    tau = 5.0 / 6.0                # Задаєм критичне значення повторюваності одиниць
-    vobs = sum(len(run) for run in runs)     # Вираховується кількість одиниць і порівнюється з значення critical_value
-    vexp = 2.0 * len(sequence) / run_count             # Вираховується 
-    runs_test_statistic = abs(vobs - vexp) / math.sqrt(2.0 * len(sequence) * (2.0 * len(sequence) - 1.0) / run_count)
+    prob = 2.0 / 3.0                # Задаєм вірогідність повторюванності одиниці
+    critical_value = 5.0 / 6.0                # Задаєм критичне значення повторюваності одиниць
+    value_compare = sum(len(run) for run in runs)     # Вираховується кількість одиниць і порівнюється з значення critical_value
+    value_prob = 2.0 * len(sequence) / run_count
+    runs_test_statistic = abs(value_compare - value_prob) / math.sqrt(2.0 * len(sequence) * (2.0 * len(sequence) - 1.0) / run_count)
     result = runs_test_statistic <= critical_value
     return result
     
@@ -70,7 +70,7 @@ def fips_140_test(sequence):
 
 # Функція прийому та передачі даних між користувачем та алгоритмами тестів
 def random_test(): 
-        binarian = input("байтова строка:")
+        binarian = input("Ввод бінарного значення:")
         result = fips_140_test(binarian)
         if result:
             print("Послідовність проходить тест FIPS-140-3: вона є достатньою випадковою.")
