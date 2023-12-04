@@ -1,13 +1,25 @@
 import random, math, itertools
 
 # 1. Реалізація монобітного тесту 
-def monobit_test(sequence):
+def test1_monobita(sequence):
     ones_count = sequence.count('1')     # Підраховує кількість одиниць у строці
     result = 9654 < ones_count < 10346     # Результат згідно тесту монобіта повинен варіювати між значеннями    
     return result                        # повертає результат
-
+    
+# 2. Реалізація тесту Максимальної довжини серії
+def test2_max_lengh(sequence):     # Записуєм наше бінарне значення в список по символьно 
+    runs = [list(g) for k, g in itertools.groupby(sequence)] 
+    run_count = len(runs)        # Розраховуєм довжину списку
+    pi  = 2.0 / 3.0                # Задаєм вірогідність повторюванності одиниці
+    tau = 5.0 / 6.0                # Задаєм критичне значення повторюваності одиниць
+    vobs = sum(len(run) for run in runs)     # Вираховується кількість одиниць і порівнюється з значення critical_value
+    vexp = 2.0 * len(sequence) / run_count             # Вираховується 
+    runs_test_statistic = abs(vobs - vexp) / math.sqrt(2.0 * len(sequence) * (2.0 * len(sequence) - 1.0) / run_count)
+    result = runs_test_statistic <= critical_value
+    return result
+    
 # 3. Реалізація тесту покера
-def poker_test(sequence):
+def test3_pokera(sequence):
     subsequence_length = 4        # Задається довжина біта
     subsequence_count = len(sequence) // subsequence_length     # Вираховується коєфіціент
     subsequence_frequencies = {}                                 # Зберігає частоти різних підпослідовностей
@@ -22,32 +34,20 @@ def poker_test(sequence):
     result = 1.03 < poker_chi_square < 57.4
     return result
 
-# 2. Реалізація 
-def runs_test(sequence):     # Записуєм наше бінарне значення в список по символьно 
-    runs = [list(g) for k, g in itertools.groupby(sequence)] 
-    run_count = len(runs)        # Розраховуєм довжину списку
-    pi = 2.0 / 3.0                # Задаєм вірогідність повторюванності одиниці
-    tau = 5.0 / 6.0                # Задаєм критичне значення повторюваності одиниць
-    vobs = sum(len(run) for run in runs)     # Вираховується кількість одиниць і порівнюється з значення tau
-    vexp = 2.0 * len(sequence) / run_count
-    runs_test_statistic = abs(vobs - vexp) / math.sqrt(2.0 * len(sequence) * (2.0 * len(sequence) - 1.0) / run_count)
-    result = runs_test_statistic <= tau
-    return result
-
-# 4. Реалізація 
-def long_run_test(sequence):    # Вираховується кількість нулів або одиниць які йдуть підряд, за цим тестом кількість не повинна перевищувати 42
+# 4. Реалізація тесту Довжин серій
+def test4_lengh(sequence):    # Вираховується кількість нулів або одиниць які йдуть підряд, за цим тестом кількість не повинна перевищувати 42
     max_run_length = max(len(list(g)) for k, g in itertools.groupby(sequence))
     result = max_run_length <= 42
     return result
 
 # Функція запуску тестів та запису результату змін
 def fips_140_test(sequence):
-    monobit_result = monobit_test(sequence)
-    poker_result = poker_test(sequence)
-    runs_result = runs_test(sequence)
-    long_run_result = long_run_test(sequence)
+    monobit_result = test1_monobita(sequence)
+    max_lengh_result = test2_max_lengh(sequence) 
+    poker_result = test3_pokera(sequence)
+    lengh_result = test4_lengh(sequence)
 
-    if monobit_result and poker_result and runs_result and long_run_result:
+    if monobit_result and  max_lengh_result and poker_result and lengh_result:
         print("Всі тести пройдено!")
         return True
     else:
@@ -56,15 +56,15 @@ def fips_140_test(sequence):
         if not monobit_result:
             num+=1
             arr.append("monobit_result_test")
+        if not max_lengh_result:
+            num+=1
+            arr.append("max_lengh_result_test")
         if not poker_result:
             num+=1
             arr.append("poker_result_test")
-        if not runs_result:
+        if not lengh_result:
             num+=1
-            arr.append("runs_result_test")
-        if not long_run_result:
-            num+=1
-            arr.append("long_run_result_test")
+            arr.append("lengh_result_test")
         print(f"Не продено тестів:{num}\n Не продено такий тест:{arr}") 
         return False
 
