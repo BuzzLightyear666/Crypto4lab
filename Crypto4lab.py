@@ -65,7 +65,7 @@ def fips_140_test(sequence):
         if not lengh_result:
             num+=1
             arr.append("lengh_result_test")
-        print(f"Не продено тестів:{num}\n Не продено такий тест:{arr}") 
+        print(f"Не пройдено тестів:{num}\n Не пройдено такий тест:{arr}") 
         return False
 
 # Функція прийому та передачі даних між користувачем та алгоритмами тестів
